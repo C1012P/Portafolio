@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portafolio — Camilo Jhoel Camacho Poma</title>
+  <meta name="description" content="Portafolio profesional — Analista de aprendizaje y soluciones ed-tech." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --ink:#0b0f13; --navy:#112031; --steel:#1b2a3a;
+      --cream:#f5f3ee; --scarlet:#7A1333; --accent:#c49a38;
+    }
+    html,body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; }
+    header nav a{ color:#0f172a; } header nav a:hover{ color:var(--scarlet); opacity:1; }
+    a.underline{ text-underline-offset:2px; }
+    .grain{ background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size:3px 3px; }
+
+    /* Tarjetas */
+    .grid-auto{ display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:1rem; }
+    .card{ border-radius:1rem; border:1px solid rgba(15,23,42,.12); background:#fff; overflow:hidden; transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease; cursor:pointer; }
+    .card:hover{ transform: translateY(-2px); box-shadow:0 10px 24px rgba(2,6,23,.12); border-color: var(--accent); }
+    .card-body{ padding:1rem; }
+
+    /* Miniaturas uniformes */
+    .thumb{ width:100%; height:160px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .thumb img{ display:block; max-width:100%; max-height:100%; object-fit:contain; transform-origin:center center; }
+
+    /* Rotación de miniaturas cuando el card trae data-rotate */
+    .card[data-type="img"][data-rotate] .thumb img{
+      /* mostramos girada pero contenida */
+      height:160px; width:auto; margin:auto;
+    }
+
+    .badge-caso{ display:inline-block; font-size:.7rem; letter-spacing:.03em; padding:.25rem .5rem; border:1px solid rgba(15,23,42,.12); border-radius:.5rem; background:var(--cream); color:#0f172a; font-weight:700; }
+
+    /* Chips del hero sin animación */
+    .cert-chip{ border-radius:.75rem; border:1px solid rgba(15,23,42,.12); background:var(--cream); padding:.65rem .8rem; color:#0f172a; font-weight:600; transition:none; cursor:default; }
+    .cert-chip:hover{ transform:none; box-shadow:none; border-color:rgba(15,23,42,.12); background:var(--cream); }
+
+    /* Modal */
+    .modal{ position:fixed; inset:0; background:rgba(0,0,0,.72); display:none; align-items:center; justify-content:center; padding:1rem; z-index:1000; }
+    .modal.open{ display:flex; }
+    .modal-content{ width:min(100%,1000px); height:min(85vh,1000px); background:#000; border-radius:1rem; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.5) }
+    .modal iframe, .modal img{ width:100%; height:100%; display:block; background:#111 }
+    .modal .close{ position:absolute; top:1rem; right:1rem; width:44px; height:44px; border-radius:.75rem; background:rgba(0,0,0,.6); color:#fff; display:grid; place-items:center; font-size:1.25rem; border:1px solid rgba(255,255,255,.35) }
+
+    .hero-emph{ color:#e5e7eb; text-shadow:0 1px 2px rgba(0,0,0,.55); }
+    .hero-emph-2{ color:#cbd5e1; text-shadow:0 1px 2px rgba(0,0,0,.5); }
+
+    /* Miniaturas para certificados PDF */
+    .pdf-thumb{ width:100%; height:160px; border-radius:.75rem; overflow:hidden; background:#e2e8f0; border:1px solid rgba(15,23,42,.12); }
+    .pdf-thumb iframe{ width:100%; height:100%; border:0; pointer-events:none; }
+  </style>
+</head>
+<body class="bg-white text-slate-800">
+  <a href="#main" class="sr-only focus:not-sr-only focus:!inline-block p-2 m-2 rounded bg-slate-800 text-white">Saltar al contenido</a>
+  <div class="h-1 w-full" style="background:linear-gradient(90deg,var(--accent),var(--scarlet))"></div>
+
+  <header class="sticky top-0 z-50 backdrop-blur bg-white/70 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#" class="font-extrabold tracking-tight text-xl" style="color:var(--scarlet)">Camilo Jhoel Camacho Poma</a>
+      <nav class="hidden sm:flex gap-6 text-sm" aria-label="Navegación principal">
+        <a href="#proyectos" class="hover:opacity-80">Proyectos</a>
+        <a href="#experiencia" class="hover:opacity-80">Experiencia</a>
+        <a href="#sobre-mi" class="hover:opacity-80">Sobre mí</a>
+        <a href="#certificados" class="hover:opacity-80">Certificados</a>
+        <a href="#contacto" class="hover:opacity-80">Contacto</a>
+      </nav>
+      <button data-nav-toggle class="sm:hidden p-2 rounded-md border border-slate-200" aria-label="Abrir menú">☰</button>
+      <a href="#contacto" class="px-3 py-2 rounded-xl text-white" style="background:var(--scarlet)">Hablemos</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="grain" style="background:linear-gradient(180deg,var(--navy),var(--steel))">
+      <div class="max-w-6xl mx-auto px-4 pt-14 pb-12 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-white">
+            Estudiante y desarrollador en <span style="color:var(--scarlet)">Sistemas</span>.
+          </h1>
+          <p class="mt-3 hero-emph text-lg font-semibold leading-relaxed">Construyo productos reales para mi universidad (UREAL): apps Android con Firebase y chatbots RAG.</p>
+          <p class="mt-2 hero-emph-2 text-base leading-relaxed">Android Studio · Firebase/Firestore · RAG (AnythingLLM/LangChain) · Docker · CSS · HTML · PHP · JavaScript · Python</p>
+          <div class="mt-6 flex gap-3">
+            <a href="#proyectos" class="px-4 py-3 rounded-2xl border border-slate-600 text-white hover:bg-white/5">Ver proyectos</a>
+            <a href="Camilo_Jhoel_Camacho_Poma_CV.pdf" class="px-4 py-3 rounded-2xl text-white" style="background:var(--scarlet)" download>Descargar CV</a>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-slate-200 p-6 shadow-sm" style="background:var(--cream)">
+          <ul class="grid grid-cols-2 gap-3 text-sm">
+            <li class="cert-chip">App “Diplomados Ya!” publicada</li>
+            <li class="cert-chip">Chatbot RAG “UREALBOT”</li>
+            <li class="cert-chip">Colaboración en equipo</li>
+            <li class="cert-chip">+4 años de carrera</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proyectos (solo imágenes) -->
+    <section id="proyectos" class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" style="color:var(--navy)">Proyectos destacados</h2>
+
+
+      <div class="grid-auto mt-6">
+        <article class="card" data-src="img/diplomados-1.jpg" data-type="img" role="button" aria-label="Diplomados Ya!">
+          <div class="thumb"><img src="img/diplomados-1.jpg" alt="Mockup Diplomados Ya"></div>
+          <div class="card-body">
+            <div class="flex items-center gap-2"><span class="badge-caso">APP</span><h3 class="font-semibold">Diplomados Ya! — Android + Firebase</h3></div>
+            <p class="text-sm text-slate-700 mt-1">App oficial para explorar diplomados UREAL. Autenticación, Firestore, Play Store.</p>
+            <div class="mt-3 text-sm">
+              <a href="https://play.google.com/store/apps/details?id=bo.ureal.diplomadosya" class="underline" target="_blank" rel="noreferrer noopener">Play Store</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" data-src="img/urealbot-1.jpg" data-type="img" role="button" aria-label="UREALBOT">
+          <div class="thumb"><img src="img/urealbot-1.jpg" alt="Captura UREALBOT"></div>
+          <div class="card-body">
+            <div class="flex items-center gap-2"><span class="badge-caso">IA</span><h3 class="font-semibold">UREALBOT — Chatbot RAG</h3></div>
+            <p class="text-sm text-slate-700 mt-1">AnythingLLM + LangChain + Docker. Respuestas con fuentes UREAL; front con CSS/JS.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experiencia -->
+    <section id="experiencia" class="max-w-6xl mx-auto px-4 py-10">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" style="color:var(--navy)">Experiencia</h2>
+      <ul class="mt-4 space-y-4">
+        <li class="p-5 rounded-2xl border border-slate-200 bg-white">
+          <div class="font-semibold">Auxiliar / Desarrollador en Sistemas — Universidad Real</div>
+          <div class="text-sm text-slate-700">2021–Presente · Bolivia</div>
+          <p class="text-sm mt-2">Desarrollo de aplicaciones internas (Android + Firebase) y chatbots RAG. Soporte a áreas académicas.</p>
+        </li>
+        <li class="p-5 rounded-2xl border border-slate-200 bg-white">
+          <div class="font-semibold">Estudiante de Ingeniería de Sistemas — UREAL</div>
+          <div class="text-sm text-slate-700">2021–Presente</div>
+          <p class="text-sm mt-2">Cursando 4º año (7mo. semestre). Enfoque en soluciones creativas y documentadas.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Certificados -->
+    <section id="certificados" class="max-w-6xl mx-auto px-4 py-12">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" style="color:var(--navy)">Certificados</h2>
+
+      <div class="grid-auto mt-6">
+        <!-- 3 primeros: IMÁGENES con giro a la izquierda -->
+        <div class="card" data-src="Certificados/Imagen de WhatsApp 2025-09-26 a las 22.12.55_a24cbaff.jpg" data-type="img" data-rotate="-90" role="button">
+          <div class="thumb">
+            <!-- CORREGIDO: ruta incluye 'Certificados/' -->
+            <img src="Certificados/Imagen de WhatsApp 2025-09-26 a las 22.12.55_a24cbaff.jpg" alt="Hackathon — Emprender Bicentenario">
+          </div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--navy)">Hackathon — Emprender Bicentenario</div>
+            <div class="text-slate-700">Desarrollador de Proyectos Tecnológicos · 26–27 abril 2025</div>
+          </div>
+        </div>
+
+        <div class="card" data-src="Certificados/Imagen de WhatsApp 2025-09-26 a las 22.15.38_a1cb7b81.jpg" data-type="img" data-rotate="-90" role="button">
+          <div class="thumb">
+            <img src="Certificados/Imagen de WhatsApp 2025-09-26 a las 22.15.38_a1cb7b81.jpg" alt="7.º Congreso Internacional — Economía Circular">
+          </div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--navy)">7.º Congreso Internacional — Economía Circular</div>
+            <div class="text-slate-700">Universidad Real · 16 nov 2022</div>
+          </div>
+        </div>
+
+        <div class="card" data-src="Certificados/Imagen de WhatsApp 2025-09-26 a las 22.13.28_03365eb3.jpg" data-type="img" data-rotate="-90" role="button">
+          <div class="thumb">
+            <img src="Certificados/Imagen de WhatsApp 2025-09-26 a las 22.13.28_03365eb3.jpg" alt="Olimpiada Científica — Geografía">
+          </div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--navy)">Olimpiada Científica — Geografía</div>
+            <div class="text-slate-700">Medalla de Bronce · 2018</div>
+          </div>
+        </div>
+
+        <!-- Resto: mantienen EXACTAMENTE tus nombres -->
+        <div class="card" data-src="Certificados/Certificado%20Activatech-2023%20-%200013.pdf" data-type="pdf" role="button">
+          <div class="thumb pdf-thumb"><iframe loading="lazy" src="Certificados/Certificado%20Activatech-2023%20-%200013.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=FitH"></iframe></div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--scarlet)">Activatech 2023</div>
+            <div class="text-slate-700">Certificado de participación</div>
+          </div>
+        </div>
+
+        <div class="card" data-src="Certificados/UREAL_df3db3d4c5df4bb6ef4b64f591ba8186041c277f.pdf" data-type="pdf" role="button">
+          <div class="thumb pdf-thumb"><iframe loading="lazy" src="Certificados/UREAL_df3db3d4c5df4bb6ef4b64f591ba8186041c277f.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=FitH"></iframe></div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--scarlet)">Maratón Académica — Primeros Auxilios Mentales y Emocionales</div>
+            <div class="text-slate-700">Universidad Real · 2025</div>
+          </div>
+        </div>
+
+        <div class="card" data-src="Certificados/UREAL_9e940feaba4078cad243145cfb701a2f1e85b969.pdf" data-type="pdf" role="button">
+          <div class="thumb pdf-thumb"><iframe loading="lazy" src="Certificados/UREAL_9e940feaba4078cad243145cfb701a2f1e85b969.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=FitH"></iframe></div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--scarlet)">Feria a la Inversa</div>
+            <div class="text-slate-700">Universidad Real · 2025</div>
+          </div>
+        </div>
+
+        <div class="card" data-src="Certificados/UREAL_0210dfbcd916acfc5aebed96291cb6b003a05f34.pdf" data-type="pdf" role="button">
+          <div class="thumb pdf-thumb"><iframe loading="lazy" src="Certificados/UREAL_0210dfbcd916acfc5aebed96291cb6b003a05f34.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=FitH"></iframe></div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--scarlet)">El Arte de lo Invisible — Congreso</div>
+            <div class="text-slate-700">Universidad Real · 2024</div>
+          </div>
+        </div>
+
+        <div class="card" data-src="Certificados/UREAL_a4b9dd890dc045490d625cd9b86540e00e49320f.pdf" data-type="pdf" role="button">
+          <div class="thumb pdf-thumb"><iframe loading="lazy" src="Certificados/UREAL_a4b9dd890dc045490d625cd9b86540e00e49320f.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=FitH"></iframe></div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--scarlet)">Flow Mental — Maneja tus feelings</div>
+            <div class="text-slate-700">Universidad Real · 2024</div>
+          </div>
+        </div>
+
+        <div class="card" data-src="Certificados/UREAL_977e9b3577dce5620cd6d25b3beb41760241ae03.pdf" data-type="pdf" role="button">
+          <div class="thumb pdf-thumb"><iframe loading="lazy" src="Certificados/UREAL_977e9b3577dce5620cd6d25b3beb41760241ae03.pdf#toolbar=0&navpanes=0&scrollbar=0&page=1&view=FitH"></iframe></div>
+          <div class="card-body text-sm">
+            <div class="font-semibold" style="color:var(--scarlet)">Jornada de Inteligencia Emocional</div>
+            <div class="text-slate-700">Universidad Real · 2023</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="max-w-6xl mx-auto px-4 py-12">
+      <div class="rounded-3xl border border-slate-200 p-8 bg-slate-50">
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight" style="color:var(--navy)">¿Hablamos?</h2>
+        <p class="mt-2 text-slate-700">Cuéntame tu reto. Respondo rápido.</p>
+        <div class="mt-5 flex flex-col sm:flex-row gap-3">
+          <a href="mailto:camacho.camilo10.10@gmail.com" class="px-4 py-3 rounded-2xl text-white text-center" style="background:var(--scarlet)">Enviar correo</a>
+          <a href="https://wa.me/59164903480" target="_blank" rel="noreferrer noopener" class="px-4 py-3 rounded-2xl border border-slate-300 text-center">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-10 text-center text-xs text-slate-500 border-t">© <span id="year"></span> Camilo Jhoel Camacho Poma. Todos los derechos reservados.</footer>
+  </main>
+
+  <!-- Modal -->
+  <div id="lightbox" class="modal" aria-hidden="true" aria-label="Visor">
+    <button class="close" aria-label="Cerrar">✕</button>
+    <div class="modal-content"></div>
+  </div>
+
+  <script>
+    // Año
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Nav móvil
+    (function(){
+      const btn = document.querySelector('[data-nav-toggle]');
+      const nav = document.querySelector('nav');
+      if(!btn || !nav) return;
+      btn.addEventListener('click', ()=> nav.classList.toggle('hidden'));
+    })();
+
+    // Visor + rotación
+    (function(){
+      const box = document.getElementById('lightbox');
+      const content = box.querySelector('.modal-content');
+      const close = box.querySelector('.close');
+      const cards = document.querySelectorAll('.card');
+
+      function open(src, type, rotateDeg){
+        box.classList.add('open');
+        content.innerHTML = '';
+        if(type === 'img'){
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = 'Vista';
+          img.style.objectFit = 'contain';
+          img.style.maxWidth = '100%';
+          img.style.maxHeight = '100%';
+          if(rotateDeg){ img.style.transform = `rotate(${rotateDeg}deg)`; img.style.transformOrigin='center center'; }
+          content.appendChild(img);
+        }else{
+          const iframe = document.createElement('iframe');
+          iframe.src = src;
+          iframe.title = 'Documento';
+          iframe.loading = 'lazy';
+          content.appendChild(iframe);
+        }
+        box.setAttribute('aria-hidden','false');
+      }
+      function closeBox(){
+        box.classList.remove('open');
+        content.innerHTML = '';
+        box.setAttribute('aria-hidden','true');
+      }
+
+      // aplica giro a MINiATURAS cuando el card trae data-rotate
+      cards.forEach(card=>{
+        if(card.getAttribute('data-type') === 'img' && card.hasAttribute('data-rotate')){
+          const deg = parseInt(card.getAttribute('data-rotate'),10) || 0;
+          const img = card.querySelector('.thumb img');
+          if(img){ img.style.transform = `rotate(${deg}deg)`; }
+        }
+        card.addEventListener('click', ()=>{
+          const src = card.getAttribute('data-src');
+          const type = card.getAttribute('data-type') || 'img';
+          const rotate = parseInt(card.getAttribute('data-rotate'),10) || 0;
+          if(src) open(src, type, rotate);
+        });
+      });
+
+      close.addEventListener('click', closeBox);
+      box.addEventListener('click', (e)=>{ if(e.target === box) closeBox(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeBox(); });
+    })();
+  </script>
+</body>
+</html>
